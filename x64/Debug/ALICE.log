@@ -1,0 +1,3 @@
+﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  sketch_2021_GenoPhenotype.cpp
+C:\Users\shajay.b\Documents\Visual Studio 2019\Source\Alice2022_UoC\src\userSrc\ws\sketch_2021_GenoPhenotype.cpp(7,10): fatal error C1083: Cannot open include file: 'headers/zApp/include/zObjects.h': No such file or directory
