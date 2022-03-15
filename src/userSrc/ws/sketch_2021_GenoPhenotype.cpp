@@ -260,7 +260,7 @@ void keyPress(unsigned char k, int xm, int ym)
 		testVxl.transformMesh(tmat);
 
 
-		RM.addMesh(testVxl.o_mesh);
+		//	RM.addMesh(testVxl.o_mesh);
 	}
 
 	
