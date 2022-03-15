@@ -4,7 +4,7 @@ Usage:
 1. select all the particles i.e. NOT the particle object as a whole, but the individual particles
 in sub-object mode and window-selection;
 2. then run script.
-3. The script writes a  text file in your C:/Users/shajay.b/Documents/Visual Studio 2019/Source/Alice2020/x64/Release/EXE/data/ root location
+3. The script writes a  text file in your C:/Users/bshajay/Documents/GitHub/Alice2022_UoC/x64/Release/EXE/data/ root location
 */
 
 
