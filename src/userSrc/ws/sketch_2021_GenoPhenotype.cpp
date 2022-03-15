@@ -99,6 +99,8 @@ void setup()
 	B.addButton(&drawFaces, "drawFaces");
 	B.addButton(&drawWire, "drawWire");
 
+	//cout << " change made in class" << endl;
+
 }
 
 // 100 times a second
