@@ -162,7 +162,7 @@ void keyPress(unsigned char k, int xm, int ym)
 		IO importer;
 		zVectorArray pts;
 		zVector dxdydz;
-		dxdydz = importer.read("data/voxGrid.txt",pts);
+		dxdydz = importer.read("data/points.csv",pts);
 
 
 		// check if number of voxels <  VXLS array size

@@ -104,7 +104,7 @@ public:
 		zVector u, v, w, c;
 		c = cen;
 		float maxL = diagLength;
-		float mult = ofMap(id, 0, 3097, 0.1, 4); ;// 4 - ofMap(cen.length(), 0, maxL, 0.1, 4);
+		float mult = ofMap(id, 0, 215, 0.1, 4); ;// 4 - ofMap(cen.length(), 0, maxL, 0.1, 4);
 
 		//cout << mult << "--mult" << endl;
 
