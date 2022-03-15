@@ -1,0 +1,53 @@
+/*
+
+Usage:
+1. select all the particles i.e. NOT the particle object as a whole, but the individual particles
+in sub-object mode and window-selection;
+2. then run script.
+3. The script writes a  text file in your C:/Users/shajay.b/Documents/Visual Studio 2019/Source/Alice2020/x64/Release/EXE/data/ root location
+*/
+
+
+
+proc writeFile(string $writeFile,string $locArray[])
+{
+
+$fileName = ("C:/Users/bshajay/Documents/GitHub/Alice2022_UoC/x64/Release/EXE/data/"+$writeFile+".csv");
+
+	$tst=`filetest -f ("C:/Users/bshajay/Documents/GitHub/Alice2022_UoC/x64/Release/EXE/data/"+$writeFile+".csv")`;
+	if($tst!=0){$chk=`sysFile -delete ("C:/Users/bshajay/Documents/GitHub/Alice2022_UoC/x64/Release/EXE/data/"+$writeFile+".csv")`;}
+
+$fileId=`fopen $fileName "w"`;
+
+fprint $fileId ( "DIM  1 1 1 \n");
+
+vector $pos;	
+	for($object in $locArray)
+	{
+	$pos=`pointPosition $object`;
+	fprint $fileId ( "v " + $pos.x+" "+$pos.y+" "+$pos.z+"\n");
+	}
+
+fclose $fileId;
+}
+
+proc main()
+{
+	
+	if(size(`filterExpand -ex 1 -sm 31`)>0)
+	{
+	writeFile("points",`filterExpand -ex 1 -sm 31`);
+	}
+
+	if(size(`filterExpand -ex 1 -sm 22`)>0)
+	{
+	writeFile("points",`filterExpand -ex 1 -sm 22`);
+	}
+	
+	if(size(`filterExpand -ex 1 -sm 47`)>0)
+	{
+	writeFile("points",`filterExpand -ex 1 -sm 47`);
+	}
+}
+
+main();
