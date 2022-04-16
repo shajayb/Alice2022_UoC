@@ -143,7 +143,7 @@ void draw()
 	
 }
 
-float z = 0;
+float z = 0.0;
 
 void keyPress(unsigned char k, int xm, int ym)
 {
