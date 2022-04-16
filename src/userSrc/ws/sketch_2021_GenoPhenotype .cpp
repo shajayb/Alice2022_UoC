@@ -32,27 +32,6 @@ using namespace zSpace;
 
 
 
-zVector zScreenToCamera(int x, int y, double zPlane = 0)
-{
-	double camera_pos[3];
-	GLdouble matModelView[16], matProjection[16];
-	int viewport[4];
-	// get matrices and viewport:
-	glGetDoublev(GL_MODELVIEW_MATRIX, matModelView);
-	glGetDoublev(GL_PROJECTION_MATRIX, matProjection);
-	glGetIntegerv(GL_VIEWPORT, viewport);
-
-	int scrCenX = (viewport[2] - viewport[0]) / 2;
-	int scrCenY = (viewport[3] - viewport[1]) / 2;
-	gluUnProject
-	(
-		scrCenX + x, scrCenY + y, zPlane, //screen coords
-		matModelView, matProjection, viewport, //mvp matrices
-		&camera_pos[0], &camera_pos[1], &camera_pos[2] // return pos
-	);
-
-	return zVector(camera_pos[0], camera_pos[1], camera_pos[2]);
-}
 
 
 
@@ -303,7 +282,7 @@ void mouseMotion(int x, int y)
 	bool dragging = (glutGetModifiers() == GLUT_ACTIVE_ALT) ? true : false;
 	int cur_msx = winW * 0.5;
 	int cur_msy = winH * 0.5;
-	camPt = zScreenToCamera(cur_msx, cur_msy, 0.2);
+	//camPt = zScreenToCamera(cur_msx, cur_msy, 0.2);
 
 }
 #endif // _MAIN_
