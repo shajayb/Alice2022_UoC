@@ -1,5 +1,0 @@
-﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  sketch_intro.cpp
-C:\Users\shajay.b\source\repos\Alice2022_UoC\src\userSrc\ws\sketch_intro.cpp(7,10): fatal error C1083: Cannot open include file: 'headers/zApp/include/zObjects.h': No such file or directory
-  sketch_2021_GenoPhenotype - Copy.cpp
-C:\Users\shajay.b\source\repos\Alice2022_UoC\src\userSrc\ws\sketch_2021_GenoPhenotype - Copy.cpp(7,10): fatal error C1083: Cannot open include file: 'headers/zApp/include/zObjects.h': No such file or directory
