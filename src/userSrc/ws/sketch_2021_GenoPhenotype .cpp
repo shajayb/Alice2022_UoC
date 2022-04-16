@@ -284,7 +284,7 @@ void keyPress(unsigned char k, int xm, int ym)
 
 	if (k == 'w')
 	{
-		RM.writeOBJ("data/outRM.obj");
+		RM.writeOBJ("data/outRM_.obj");
 	}
 
 
