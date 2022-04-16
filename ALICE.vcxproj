@@ -33,7 +33,7 @@
     <ClInclude Include="src\alice\utilities.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\userSrc\ws\sketch_2021_GenoPhenotype - Copy.cpp" />
+    <ClCompile Include="src\userSrc\ws\sketch_2021_GenoPhenotype .cpp" />
     <ClCompile Include="src\userSrc\ws\sketch_intro.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
