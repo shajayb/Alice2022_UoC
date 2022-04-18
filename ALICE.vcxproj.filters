@@ -22,5 +22,6 @@
   <ItemGroup>
     <ClCompile Include="src\userSrc\ws\sketch_intro.cpp" />
     <ClCompile Include="src\userSrc\ws\sketch_2021_GenoPhenotype .cpp" />
+    <ClCompile Include="src\userSrc\ws\sketch_empty.cpp" />
   </ItemGroup>
 </Project>
