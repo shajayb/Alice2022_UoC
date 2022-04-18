@@ -42,8 +42,9 @@ void setup() // EVENT
 
 	aPt.x = 5; // setting the property ( in this case the x coordinate of aPt) ;
 
-	
 	fileImporter.read("data/voxGrid.txt", pts);// executing an action
+
+
 }
 
 // 100 times a second // FRAME RATE
