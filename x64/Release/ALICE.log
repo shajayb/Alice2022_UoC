@@ -1,1 +1,8 @@
-﻿
+﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  sketch_2021_GenoPhenotype .cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(1363,5): warning MSB8012: TargetPath(C:\Users\shajay.b\source\repos\Alice2022_UoC\x64\Release\ALICE.exe) does not match the Linker's OutputFile property value (C:\Users\shajay.b\source\repos\Alice2022_UoC\x64\Release\EXE\ALICE.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+     Creating library C:\Users\shajay.b\source\repos\Alice2022_UoC\x64\Release\ALICE.lib and object C:\Users\shajay.b\source\repos\Alice2022_UoC\x64\Release\ALICE.exp
+  Generating code
+  Finished generating code
+  ALICE.vcxproj -> C:\Users\shajay.b\source\repos\Alice2022_UoC\x64\Release\ALICE.exe
