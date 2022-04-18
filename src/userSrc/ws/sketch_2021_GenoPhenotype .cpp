@@ -74,7 +74,7 @@ zObjMesh OM;
 zTransform tmat;
 zVector u, v, w, c;
 
-float scl = 0.1;
+float scl = 0.2;
 bool drawOM = false;
 
 RenderMesh RM;
