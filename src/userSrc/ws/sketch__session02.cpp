@@ -94,7 +94,7 @@ void setup() // run once when the software opens
 	fnMesh = zFnMesh(o_mesh);
 
 	//use zFnMesh to manipoulate zObjMesh;
-	fnMesh.from("data/grid_maya.obj", zSpace::zOBJ);
+	fnMesh.from("data/cross3d.obj", zSpace::zOBJ);
 	
 	// instance.action() ;
 	// instance name = fnmesh
@@ -119,7 +119,6 @@ void draw()
 
 	//
 	zPointArray vPos; // vPos = empty array of zPoints
-
 	fnMesh.getVertexPositions(vPos); // fill the empty array of zPOints with the zPoint of the vertices of mesh we imported;
 
 	for (int i = 0; i < vPos.size(); i++)
