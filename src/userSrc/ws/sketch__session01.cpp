@@ -92,6 +92,9 @@ void setup() // run once when the software opens
 	for (int i = 0; i < 6; i+= 1 )
 	{
 		myArray[i] = i * 5.2;
+		//
+		//instance.property = value;
+		//instance.action() ;
 		
 	}
 
@@ -123,7 +126,9 @@ void setup() // run once when the software opens
 
 	for (int i = 0; i < 10; i++)
 	{
-		myArrayofBoxes[i].w = 1;
+		// myArrayofBoxes[i] = 0;<-- this doesn't make sense because LHS is not the same type as RHS ;
+
+		myArrayofBoxes[i].w = 1; // < -- this makes sense, because LHS is the same type as RHS ;
 		myArrayofBoxes[i].h = 1;
 		myArrayofBoxes[i].d = 1;
 
@@ -156,6 +161,9 @@ void draw()
 		for (int i = 0; i < 10; i++)
 		{
 			myArrayofBoxes[i].drawMyself(); 
+			// instance.action()
+			// instance name = myArrayofBoxes[i]
+			// name of action = drawMyself();
 		}
 	}
 
