@@ -228,6 +228,10 @@ void draw()
 		cnt++;
 	}
 
+	//zFnGraph fnGraph;
+	//zObjGraph o_graph;
+
+	//fnGraph.addVertex()
 
 }
 
