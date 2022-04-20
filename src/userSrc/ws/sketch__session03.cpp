@@ -142,25 +142,8 @@ void draw()
 	o_mesh.draw();
 
 	//
-
-	//zPointArray vPos; // vPos = empty array of zPoints
-	//fnMesh.getVertexPositions(vPos); // fill the empty array of zPOints with the zPoint of the vertices of mesh we imported;
-
-	//for (int i = 0; i < vPos.size(); i++)
-	//{
-	//	zPoint a = vPos[i];
-	//	zPoint b = a;
-	//	zPoint up(0, 0, 1);
-
-	//	zPoint bPrime = b + up;
-
-	//	disp.drawLine(a, bPrime, zColor(1, 0, 0, 1), 3);
-	//}
-
-
-
-		// iterator --> iterates over mesh faces
-		// zItMeshVertex --> iterate over mesh vertices;
+	// iterator --> iterates over mesh faces
+	// zItMeshVertex --> iterate over mesh vertices;
 
 	zPointArray fvPositions;
 
@@ -168,13 +151,13 @@ void draw()
 	 from each face in the mesh, get connected vertices; 
 	 for each vertex in connected vertices, draw a line from the current vertex to the next one;*/
 	  
-	// ! <-- NOT operator
-	// apple = red;
-	// do something if apple is not red;
-	// if( ! (apple == red ))
+	/* ! <-- NOT operator
+	 apple = red;
+	 do something if apple is not red;
+	 if( ! (apple == red ))
 
-	// do something, if apple is red
-	// if(  (apple == red ))
+	 do something, if apple is red
+	 if(  (apple == red ))*/
 
 	//for (zItMeshFace f(o_mesh); !f.end(); f++)
 	{
@@ -224,14 +207,10 @@ void draw()
 
 	for (zItMeshFace f(o_mesh); !f.end(); f++)
 	{
-		//zItMeshFace f(o_mesh); // a object class to iterate over mesh faces stored in o_mesh ;
-		//f is initiated to face 0;
-
-		cnt++;
 
 		//if ( ( cnt < 5 ) && cnt < 2  ) // redundant ;
 		//if ( ( cnt <5 ) || cnt > 15  )
-		if ( !( cnt == 5 )  ) // && is the AND operator , ! is the NOT operator; || is the OR operator
+		if ( ( cnt == 5 )  ) // && is the AND operator , ! is the NOT operator; || is the OR operator
 		{
 			connectedFaces.clear();
 			f.getConnectedFaces(connectedFaces);;// this will fill the mepty array with the mesh faces that are conencted to f ;
@@ -246,6 +225,7 @@ void draw()
 			}
 		}
 
+		cnt++;
 	}
 
 
@@ -256,9 +236,6 @@ void update(int value)
 {
 
 }
-
-
-
 
 void keyPress(unsigned char k, int xm, int ym)
 {
