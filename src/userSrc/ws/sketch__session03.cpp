@@ -68,6 +68,9 @@ zObjMesh o_mesh; // a object class to store mesh type of data (V,E,F)
 zFnMesh fnMesh; // another object class to manipulate (read / writing) the information stored in the class above;
 zPointArray vPos;
 
+//zFnGraph fnGraph;
+//zObjGraph o_graph;
+
 void drawFaceEdges( zPointArray &FV )
 {
 	int start = 0;
@@ -228,8 +231,7 @@ void draw()
 		cnt++;
 	}
 
-	//zFnGraph fnGraph;
-	//zObjGraph o_graph;
+
 
 	//fnGraph.addVertex()
 
