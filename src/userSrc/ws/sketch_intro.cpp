@@ -25,7 +25,6 @@ zUtilsDisplay Dsp; // global definitions
 zPoint aPt;
 zColor blue;
 zColor red;
-zPoint b;
 zVectorArray pts;
 
 IO fileImporter;
@@ -33,23 +32,35 @@ IO fileImporter;
 
 ////////////////_______________ MVC
 
+// vectors and transformations.
+// transfromation = translation, rotation, scale
+
+zPoint a, b, o;
+zVector center;
+
 void setup() // EVENT 
 {
+	a = zPoint(-5, 5, 0);
+	b = zPoint(5, 5, 0);
+	o = zPoint(0, 0, 0);
 
-	// USES of the . notation
-	// object.action()
-	// object.property
-
-	aPt.x = 5; // setting the property ( in this case the x coordinate of aPt) ;
+	center = zVector(15, 5, 0);
 
 	
-	fileImporter.read("data/voxGrid.txt", pts);// executing an action
 }
+
+
 
 // 100 times a second // FRAME RATE
 void update(int value)
 {
 
+	// LHS = RHS
+	center.x = center.x + 0.001;
+
+	a = a + center;
+	b = b + center;
+	o = o + center;
 }
 	
 // happens 100 times a second
@@ -58,17 +69,14 @@ void draw()
 	backGround(0.8);
 	drawGrid(50);
 
+
+	Dsp.drawPoint(a, zColor(1, 0, 0, 1), 8);
+	Dsp.drawPoint(b, zColor(0, 0, 1, 1), 8);
+
+	Dsp.drawLine(a, b);
+	Dsp.drawLine(a, o);
+	Dsp.drawLine(b, o);
 	
-
-
-	for ( int i = 0; i <= 200; i+=50 )
-	{
-
-		zPoint pt(i, i, 25);
-		Dsp.drawPoint(pt, red, 5);
-	}
-
-
 }
 
 
