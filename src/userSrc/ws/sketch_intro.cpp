@@ -38,50 +38,86 @@ IO fileImporter;
 // global scope of a variable --> meaning the names and the contents of the variable are visible everywhere in the code.
 zPoint a, b, o;
 zVector center;
+zVector corner;
 zTransform tmat;
+zTransform tmat_forBox;
 zPointArray myPointArray;
 
+// **** mathematical concepts **** 
+// vectors & transformation (matrix)
+// vectors : add,substact, cross product, dot product
+// 
+// transform : 
+// new point = old point * transform matrix
+// columns of hte transform matrix are the x,y,z axes and the origin of the frame ;
 
+// *** programming concepts ****
+// variable ?
+// MVC --> setup, update, draw, keypress etc;
+// global scope and local scope of variable
+// class or object orient programming
+
+class triangle
+{
+public:
+
+	// properties
+	zPoint v1, v2, v3;
+	zTransform tmat;
+	zUtilsDisplay display;
+
+	//actions or methods;
+	void drawYourself()
+	{
+		display.drawPoint(v1, zColor(0, 0, 0, 1), 5);
+		display.drawPoint(v2, zColor(0, 0, 0, 1), 5);
+		display.drawPoint(v3, zColor(0, 0, 0, 1), 5);
+
+		display.drawLine(v1, v2, zColor(0,0,1,1));
+		display.drawLine(v2, v3);
+		display.drawLine(v3, v1);
+	}
+
+
+	void transformYourSelf()
+	{
+		// new point = old point * tranform matrix ;
+		v1 = v1 * tmat;
+		v2 = v2 * tmat;
+		v3 = v3 * tmat;
+	}
+
+
+};
+
+triangle redT;
+triangle blueT;
+
+vector<triangle> mytriangleArray;
 
 void setup() // EVENT 
 {
 
-	// local scope --> meaning the name and contents are only visible within setup ;
-	a = zPoint(-5, 5, 0);
-	b = zPoint(5, 5, 0);
-	o = zPoint(0, 0, 0);
 
-	// arrays ;
-	myPointArray.push_back(a); // adding a point into myPointArray ;
-	myPointArray.push_back(b);
-	myPointArray.push_back(o);
 
-	// construct the **transformation matrix** to represent the rotated and translated **frame**
+	for (int i = 0; i < 10; i++)
+	{
+		triangle aTriangle;
+		aTriangle.v1 = zPoint(-5, 5, 0);
+		aTriangle.v2 = zPoint(5, 5, 0);
+		aTriangle.v3 = zPoint(0, 0, 0);
 
-	center = zVector(15, 5, 0);
+		aTriangle.tmat.col(0) << 1, 0, 0, 1; // xAxis of frame
+		aTriangle.tmat.col(1) << 0, 1, 0, 1; // yAxis of the frame
+		aTriangle.tmat.col(2) << 0, 0, 1, 1; // zAxis of frame
 
-	zVector xAxis, yAxis, zAxis;
+		aTriangle.tmat.col(3) << float(i)*15.0, 0, 0, 1; // origin of frame
 
-	//
-	xAxis = zVector(1, -5, 0); // xAxis of the frame
-	zAxis = zVector(0, 0, 1); // zAxis of the frame
-	yAxis = xAxis ^ zAxis; // use cross product to calculate the yAxis of the frame
-	
-	// normalise the axes;
-	xAxis.normalize();
-	yAxis.normalize();
-	zAxis.normalize();
+		
+		mytriangleArray.push_back(aTriangle);
+	}
 
-	// insert the axes into the columns of hte transformation matrix ;
-	tmat.col(0) << xAxis.x, xAxis.y, xAxis.z, 1;
-	tmat.col(1) << yAxis.x, yAxis.y, yAxis.z, 1;
-	tmat.col(2) << zAxis.x, zAxis.y, zAxis.z, 1;
-	tmat.col(3) << center.x, center.y, center.z, 1;
 
-	//a = a * tmat; // multiply orignal point with the transformation matrix to get the new point
-	//b = b * tmat;
-	//o = o * tmat;
-	// use the transformation matrix, to transform the original points to their new location i.e to the new frame.
 
 	
 }
@@ -101,24 +137,28 @@ void draw()
 	backGround(0.8);
 	drawGrid(50);
 
+	// trigger the action of drawing --> call the method of the class
+	/*redT.drawYourself();
+	blueT.drawYourself();*/
 
-
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < mytriangleArray.size(); i++)
 	{
-		Dsp.drawPoint(myPointArray[i], zColor(1, 0, 0, 1), 8);
+		mytriangleArray[i].drawYourself();
 	}
-	
 }
 
 
 void keyPress(unsigned char k, int xm, int ym)
 {
 	
-	for (int i = 0; i < myPointArray.size(); i++)
+	if (k == 'm')
 	{
-		myPointArray[i] = myPointArray[i] * tmat;
-	}
+		for (int i = 0; i < mytriangleArray.size(); i++)
+		{
+			mytriangleArray[i].transformYourSelf();
+		}
 
+	}
 }
 
 void mousePress(int b, int state, int x, int y)
