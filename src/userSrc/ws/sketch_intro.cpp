@@ -102,19 +102,20 @@ void setup() // EVENT
 
 	for (int i = 0; i < 10; i++)
 	{
-		triangle aTriangle;
-		aTriangle.v1 = zPoint(-5, 5, 0);
-		aTriangle.v2 = zPoint(5, 5, 0);
-		aTriangle.v3 = zPoint(0, 0, 0);
+		for (int j = 0; j < 10; j++)
+		{
+			triangle aTriangle;
+			aTriangle.v1 = zPoint(-5, 5, 0);
+			aTriangle.v2 = zPoint(5, 5, 0);
+			aTriangle.v3 = zPoint(0, 0, 0);
 
-		aTriangle.tmat.col(0) << 1, 0, 0, 1; // xAxis of frame
-		aTriangle.tmat.col(1) << 0, 1, 0, 1; // yAxis of the frame
-		aTriangle.tmat.col(2) << 0, 0, 1, 1; // zAxis of frame
 
-		aTriangle.tmat.col(3) << float(i)*15.0, 0, 0, 1; // origin of frame
+			aTriangle.tmat.setIdentity();
+			aTriangle.tmat.col(3) << i * 15.0, j * 15.0, 0, 1; // origin of frame
 
-		
-		mytriangleArray.push_back(aTriangle);
+
+			mytriangleArray.push_back(aTriangle);
+		}
 	}
 
 
