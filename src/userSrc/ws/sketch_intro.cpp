@@ -36,12 +36,6 @@ IO fileImporter;
 // transfromation = translation, rotation, scale
 
 // global scope of a variable --> meaning the names and the contents of the variable are visible everywhere in the code.
-zPoint a, b, o;
-zVector center;
-zVector corner;
-zTransform tmat;
-zTransform tmat_forBox;
-zPointArray myPointArray;
 
 // **** mathematical concepts **** 
 // vectors & transformation (matrix)
@@ -57,68 +51,21 @@ zPointArray myPointArray;
 // global scope and local scope of variable
 // class or object orient programming
 
-class triangle
-{
-public:
-
-	// properties
-	zPoint v1, v2, v3;
-	zTransform tmat;
-	zUtilsDisplay display;
-
-	//actions or methods;
-	void drawYourself()
-	{
-		display.drawPoint(v1, zColor(0, 0, 0, 1), 5);
-		display.drawPoint(v2, zColor(0, 0, 0, 1), 5);
-		display.drawPoint(v3, zColor(0, 0, 0, 1), 5);
-
-		display.drawLine(v1, v2, zColor(0,0,1,1));
-		display.drawLine(v2, v3);
-		display.drawLine(v3, v1);
-	}
+//class-name instance name;
+zFnMesh meshFn; // a class that allows you to query a mesh
+zObjMesh omesh; // a class to store the mesh in memomry
 
 
-	void transformYourSelf()
-	{
-		// new point = old point * tranform matrix ;
-		v1 = v1 * tmat;
-		v2 = v2 * tmat;
-		v3 = v3 * tmat;
-	}
 
-
-};
-
-triangle redT;
-triangle blueT;
-
-vector<triangle> mytriangleArray;
 
 void setup() // EVENT 
 {
 
+	
+	meshFn = zFnMesh(omesh); // initiliase meshFn, similar to zPoint ;
+	meshFn.from("data/test.obj", zSpace::zOBJ); // use meshFn to import the mesh;
 
-
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			triangle aTriangle;
-			aTriangle.v1 = zPoint(-5, 5, 0);
-			aTriangle.v2 = zPoint(5, 5, 0);
-			aTriangle.v3 = zPoint(0, 0, 0);
-
-
-			aTriangle.tmat.setIdentity();
-			aTriangle.tmat.col(3) << i * 15.0, j * 15.0, 0, 1; // origin of frame
-
-
-			mytriangleArray.push_back(aTriangle);
-		}
-	}
-
-
+	//instance.action();
 
 	
 }
@@ -142,10 +89,8 @@ void draw()
 	/*redT.drawYourself();
 	blueT.drawYourself();*/
 
-	for (int i = 0; i < mytriangleArray.size(); i++)
-	{
-		mytriangleArray[i].drawYourself();
-	}
+	omesh.draw();
+	//redT.drawyourself();
 }
 
 
@@ -154,11 +99,45 @@ void keyPress(unsigned char k, int xm, int ym)
 	
 	if (k == 'm')
 	{
-		for (int i = 0; i < mytriangleArray.size(); i++)
+		//do something .. i.e move mesh
+		// what are teh ingredients to move a mesh ?
+		// transform matrix --> origin of the frame , x,y,z axes of the frame;
+		// new point = old point * transform matrix
+		
+		// construct or create the transform matrix ;
+		zTransform tmat;
+		tmat.setIdentity(); // set default x,y,z axis;
+
+		zVector xAxis(1, 1, 0);
+		zVector zAxis(0, 0, 1);
+		zVector yAxis = xAxis ^ zAxis;
+
+		xAxis.normalize();
+		zAxis.normalize();
+		yAxis.normalize();
+		
+		tmat.col(0) << xAxis.x, xAxis.y, xAxis.z, 1;
+		tmat.col(1) << yAxis.x, yAxis.y, yAxis.z, 1;
+		tmat.col(2) << zAxis.x, zAxis.y, zAxis.z, 1;
+		
+		tmat.col(3) << 5, 5, 5, 1; //we are teh setting the origin of the frame to 5,5,5 ;
+
+		// get the current locations of the vertices of the mesh
+		zPointArray meshVertexPositions;
+		meshFn.getVertexPositions(meshVertexPositions); // use meshFn, and use the action getVertexPositions to retireve the location of all the vertices(zPoint);
+
+		// apply the transform matrix to the current locations of hte mesh vertices, to calculate the new positions of the mesh vertices;
+		for (int i = 0; i < meshVertexPositions.size(); i++)
 		{
-			mytriangleArray[i].transformYourSelf();
+			zPoint oldPoint = meshVertexPositions[i];
+			zPoint newPoint = oldPoint * tmat;
+
+			//
+			meshVertexPositions[i] = newPoint;
 		}
 
+		// apply the new positions to the mesh vertices;
+		meshFn.setVertexPositions(meshVertexPositions);
 	}
 }
 
