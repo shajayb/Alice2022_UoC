@@ -52,22 +52,94 @@ IO fileImporter;
 // class or object orient programming
 
 //class-name instance name;
-zFnMesh meshFn; // a class that allows you to query a mesh
-zObjMesh omesh; // a class to store the mesh in memomry
+
+
+class voxelFactory
+{
+public:
+
+	// properties / attributes / fields
+	zFnMesh meshFn; // a class that allows you to query a mesh
+	zObjMesh omesh; // a class to store the mesh in memomry
+	zTransform tmat;
+
+	// actions
+
+	//1. load mesh
+
+	void loadMesh( string fileToLoad )
+	{
+		meshFn = zFnMesh(omesh); // initiliase meshFn, similar to zPoint ;
+		//meshFn.from("data/test.obj", zSpace::zOBJ); // use meshFn to import the mesh;
+		meshFn.from(fileToLoad, zSpace::zOBJ); // use meshFn to import the mesh;
+	}
+
+	// set transform matrix
+	// 
+	void setTransform( zVector center , zVector xAxis ) // argument or input for the action ;
+	{
+		// construct or create the transform matrix ;
+		tmat.setIdentity(); // set default x,y,z axis;
+
+		//zVector xAxis(1, 1, 0);
+		zVector zAxis(0, 0, 1);
+		zVector yAxis = xAxis ^ zAxis;
+
+		xAxis.normalize();
+		zAxis.normalize();
+		yAxis.normalize();
+
+		tmat.col(0) << xAxis.x, xAxis.y, xAxis.z, 1;
+		tmat.col(1) << yAxis.x, yAxis.y, yAxis.z, 1;
+		tmat.col(2) << zAxis.x, zAxis.y, zAxis.z, 1;
+
+		tmat.col(3) << center.x, center.y, center.z, 1; //we are the setting the origin of the frame to 5,5,5 ;
+
+
+	}
+	// 2. trasnfromMesh
+
+	void transformMesh()
+	{
+		// get the current locations of the vertices of the mesh
+		zPointArray meshVertexPositions;
+		meshFn.getVertexPositions(meshVertexPositions); // use meshFn, and use the action getVertexPositions to retireve the location of all the vertices(zPoint);
+
+		// apply the transform matrix to the current locations of hte mesh vertices, to calculate the new positions of the mesh vertices;
+		for (int i = 0; i < meshVertexPositions.size(); i++)
+		{
+			zPoint oldPoint = meshVertexPositions[i];
+			zPoint newPoint = oldPoint * tmat;
+
+			//
+			meshVertexPositions[i] = newPoint;
+		}
+
+		// apply the new positions to the mesh vertices;
+		meshFn.setVertexPositions(meshVertexPositions);
+	}
+
+	//draw itself
+
+	void draw()
+	{
+		omesh.draw();
+	}
+};
 
 
 
+//class-name instance name; you need an isntance of a class to be able to trigger the actions defined inside the class;
+voxelFactory testVoxel;
+voxelFactory testVoxel2;
 
 void setup() // EVENT 
 {
 
-	
-	meshFn = zFnMesh(omesh); // initiliase meshFn, similar to zPoint ;
-	meshFn.from("data/test.obj", zSpace::zOBJ); // use meshFn to import the mesh;
-
 	//instance.action();
 
-	
+	testVoxel.loadMesh("data/test_plato.obj");
+	testVoxel2.loadMesh("data/test.obj");
 }
 
 
@@ -85,12 +157,8 @@ void draw()
 	backGround(0.8);
 	drawGrid(50);
 
-	// trigger the action of drawing --> call the method of the class
-	/*redT.drawYourself();
-	blueT.drawYourself();*/
-
-	omesh.draw();
-	//redT.drawyourself();
+	testVoxel.draw();
+	testVoxel2.draw();
 }
 
 
@@ -104,40 +172,12 @@ void keyPress(unsigned char k, int xm, int ym)
 		// transform matrix --> origin of the frame , x,y,z axes of the frame;
 		// new point = old point * transform matrix
 		
-		// construct or create the transform matrix ;
-		zTransform tmat;
-		tmat.setIdentity(); // set default x,y,z axis;
+		testVoxel.setTransform( zVector(5,5,0), zVector(1,5,0));
+		testVoxel.transformMesh();
 
-		zVector xAxis(1, 1, 0);
-		zVector zAxis(0, 0, 1);
-		zVector yAxis = xAxis ^ zAxis;
-
-		xAxis.normalize();
-		zAxis.normalize();
-		yAxis.normalize();
+		testVoxel2.setTransform( zVector(25, 25, 0) , zVector( 1,1,0) );
+		testVoxel2.transformMesh();
 		
-		tmat.col(0) << xAxis.x, xAxis.y, xAxis.z, 1;
-		tmat.col(1) << yAxis.x, yAxis.y, yAxis.z, 1;
-		tmat.col(2) << zAxis.x, zAxis.y, zAxis.z, 1;
-		
-		tmat.col(3) << 5, 5, 5, 1; //we are teh setting the origin of the frame to 5,5,5 ;
-
-		// get the current locations of the vertices of the mesh
-		zPointArray meshVertexPositions;
-		meshFn.getVertexPositions(meshVertexPositions); // use meshFn, and use the action getVertexPositions to retireve the location of all the vertices(zPoint);
-
-		// apply the transform matrix to the current locations of hte mesh vertices, to calculate the new positions of the mesh vertices;
-		for (int i = 0; i < meshVertexPositions.size(); i++)
-		{
-			zPoint oldPoint = meshVertexPositions[i];
-			zPoint newPoint = oldPoint * tmat;
-
-			//
-			meshVertexPositions[i] = newPoint;
-		}
-
-		// apply the new positions to the mesh vertices;
-		meshFn.setVertexPositions(meshVertexPositions);
 	}
 }
 
